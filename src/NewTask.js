@@ -4,13 +4,16 @@ export function NewTask({newTask, handleChange, handleSubmit}){
         <div>
             <form onSubmit={handleSubmit}>
                 <input 
-                    type="text" 
-                    placeholder="Task name here..."
+                    className="input"
+                    type="text"
+                    autoFocus={true} 
+                    maxLength="75"
+                    placeholder="Add new task"
                     name="title"
                     value={newTask.title || ""}
                     onChange={handleChange}
                 />
-                <button type="submit" class="small-button">ADD TASK</button>
+                <button className="button" type="submit">ADD</button>
             </form>
         </div>
     );

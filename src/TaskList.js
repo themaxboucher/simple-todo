@@ -1,13 +1,15 @@
-export function TaskList({taskList, handleDelete}){
+export function TaskList({taskList, handleDelete, handleChange}){
 
     return(
         <div>
             <ul>
                 {taskList.map(({title, id}) => (
-                    <li key={id}>
+                    <li className="task" key={id}>
                         <div>
-                            <h2>{title}</h2>
-                            <button onClick={() => handleDelete(id)}>X</button>
+                            <input type="checkbox" onChange={(event) => handleChange(id, event)}></input>
+                            <p>{title}</p>
+                            <button className="button" onClick={() => handleDelete(id)}>X</button>
+                            <button className="button">...</button>
                         </div>
                     </li>                  
                 ))}
