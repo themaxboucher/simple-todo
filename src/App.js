@@ -3,12 +3,21 @@ import NewTask from './NewTask';
 import TaskList from './TaskList';
 import Header from './Header';
 import { useState } from "react";
+import { DndProvider } from "react-dnd";
+import {HTML5Backend} from "react-dnd-html5-backend";
+
 
 function App() {
   const [newTask, setNewTask] = useState({});
   const handleChange = ({ target }) => {
     const { name, value } = target;
-    setNewTask((prev) => ({ ...prev, id: Date.now(), [name]: value, done: false }));
+    setNewTask((prev) => ({ 
+      ...prev, 
+      id: Date.now(), 
+      [name]: value, 
+      done: false,
+      index: 1
+    }));
   };
 
   const [taskList, setTaskList] = useState([{title: 'Go add some tasks to this list', id: Date.now(), done: false}]);
@@ -58,11 +67,13 @@ function App() {
           handleChange={handleChange}
           handleSubmit={handleSubmit}
         />
-        <TaskList 
-          taskList={taskList}
-          handleDelete={handleDelete}
-          handleChange={checkTask}
-        />
+        <DndProvider backend={HTML5Backend}>
+          <TaskList 
+            taskList={taskList}
+            handleDelete={handleDelete}
+            handleChange={checkTask}
+          />         
+        </DndProvider>
       </main>
     </div>
   );
