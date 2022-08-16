@@ -1,4 +1,4 @@
-export default function NewTask({newTask, handleChange, handleSubmit}){
+export default function EditTask(){
 
     return (
         <div>
