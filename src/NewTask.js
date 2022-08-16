@@ -1,4 +1,4 @@
-export function NewTask({newTask, handleChange, handleSubmit}){
+export default function NewTask({newTask, handleChange, handleSubmit}){
 
     return (
         <div>
@@ -13,7 +13,7 @@ export function NewTask({newTask, handleChange, handleSubmit}){
                     value={newTask.title || ""}
                     onChange={handleChange}
                 />
-                <button className="button" type="submit">ADD</button>
+                <button className="button" type="submit">+</button>
             </form>
         </div>
     );

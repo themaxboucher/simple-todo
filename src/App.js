@@ -1,7 +1,7 @@
 import './App.css';
-import {NewTask} from './NewTask';
-import {TaskList} from './TaskList';
-import { Header } from './Header';
+import NewTask from './NewTask';
+import TaskList from './TaskList';
+import Header from './Header';
 import { useState } from "react";
 
 function App() {
@@ -43,7 +43,7 @@ function App() {
       toggleDone(true);
       console.log('✅ Checkbox is checked');
     } else {
-      // If task is unchecked
+      // If task is unchecked...
       toggleDone(false);
       console.log('⛔️ Checkbox is NOT checked');
     }
