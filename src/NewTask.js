@@ -1,5 +1,4 @@
 export default function NewTask({newTask, handleChange, handleSubmit}){
-
     return (
         <div>
             <form onSubmit={handleSubmit}>
