@@ -1,7 +1,7 @@
 export default function NewTask({newTask, handleChange, handleSubmit}){
     return (
         <div>
-            <form onSubmit={handleSubmit}>
+            <form className="new-task" onSubmit={handleSubmit}>
                 <input 
                     className="input"
                     type="text"

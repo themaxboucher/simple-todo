@@ -43,12 +43,6 @@ main {
   background: #a1a1a2b0; 
 }
 
-
-/* Buttons/Links */
-a {
-  text-decoration: none;
-}
-
 button[type=submit] {
   background: #705DF2;
   border-radius: 10px;
@@ -89,30 +83,6 @@ button[type=button]:hover {
   background: #272A2E;
 }
 
-.link {
-  color: #705DF2;
-  text-decoration: none;
-  transition-duration: 0.4s;
-}
-
-.link:hover {
-  cursor: pointer;
-  text-decoration: underline;
-}
-
-.nav-link {
-  text-decoration: none;
-  font-size: 12px;
-  font-weight: 500;
-  transition-duration: 0.4s;
-  opacity: 0.65;
-}
-
-.nav-link:hover {
-  opacity: 1;
-  cursor: pointer;
-}
-
 .input {
   background-color: transparent;
   color: #fff;
@@ -125,6 +95,16 @@ button[type=button]:hover {
 
 .input:focus {
   outline: none;
+}
+
+.new-task {
+  display: flex;
+  gap: 15px;
+  justify-items: center;
+  align-items: stretch;
+  background-color: #1C1E21;
+  border-radius: 15px;
+  margin-bottom: 20px;
 }
 
 .task-list {
@@ -143,14 +123,4 @@ button[type=button]:hover {
   display: flex;
   justify-content: space-between;
   align-items: stretch;
-}
-
-form {
-  display: flex;
-  gap: 15px;
-  justify-items: center;
-  align-items: stretch;
-  background-color: #1C1E21;
-  border-radius: 15px;
-  margin-bottom: 20px;
 }
