@@ -97,6 +97,10 @@ button[type=button]:hover {
   outline: none;
 }
 
+input[type=checkbox]:hover {
+  cursor: pointer;
+}
+
 .new-task {
   display: flex;
   gap: 15px;
