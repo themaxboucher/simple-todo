@@ -1,13 +1,30 @@
 :root {
-  background-color: #16171A;
   font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  
 }
 
-* {
-  color: white;
+
+@media (prefers-color-scheme: dark) {
+  html {
+    color-scheme: dark;
+    background-color: #16171A;
+    color: #fff;
+  }
+}
+
+#light {
+  color-scheme: light;
+  background-color: #fff;
+  color: #16171A;
+}
+
+#dark {
+  color-scheme: dark;
+  background-color: #16171A;
+  color: #fff;
 }
 
 header {
@@ -17,34 +34,26 @@ header {
   padding: 0 15px;
 }
 
+.logo {
+  font-weight: 900;
+  font-size: 1.5em;
+}
+
+#dark .logo {
+  color: #F2F1F2;
+}
+
+#light .logo {
+  color: #16171A;
+}
+
 main {
   margin: 50px 350px;
 }
 
-/* Width (vertical and horizontal) */
-::-webkit-scrollbar {
-  width: 5px;
-  height: 5px;
-}
-
-/* Track */
-::-webkit-scrollbar-track {
-  background: #1C1E21; 
-} 
- 
-/* Handle */
-::-webkit-scrollbar-thumb {
-  background: #A1A1A2;
-  border-radius: 5px;
-}
-
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-  background: #a1a1a2b0; 
-}
-
 button[type=submit] {
   background: #705DF2;
+  color: #fff;
   border-radius: 10px;
   text-align: center;
   display: flex;
@@ -59,7 +68,7 @@ button[type=submit] {
 }
 
 button[type=submit]:hover {
-  background: #6150cc;
+  background: #715df2d1;
   cursor: pointer;
 }
 
@@ -78,14 +87,19 @@ button[type=button] {
   margin: 5px;
 }
 
-button[type=button]:hover {
+#dark button[type=button]:hover {
   cursor: pointer;
   background: #272A2E;
 }
 
+#light button[type=button]:hover {
+  cursor: pointer;
+  background: #E0E1E1;
+}
+
 .input {
   background-color: transparent;
-  color: #fff;
+  color: inherit;
   font-size: 16px;
   font-weight: 500;
   border: none;
@@ -97,16 +111,32 @@ button[type=button]:hover {
   outline: none;
 }
 
+input[type=checkbox] {
+  margin: 10px;
+}
+
 input[type=checkbox]:hover {
   cursor: pointer;
 }
 
-.new-task {
+#dark .new-task {
   display: flex;
   gap: 15px;
   justify-items: center;
   align-items: stretch;
   background-color: #1C1E21;
+  color: #EEEFEF;
+  border-radius: 15px;
+  margin-bottom: 20px;
+}
+
+#light .new-task {
+  display: flex;
+  gap: 15px;
+  justify-items: center;
+  align-items: stretch;
+  background-color: #EEEFEF;
+  color: #1C1E21;
   border-radius: 15px;
   margin-bottom: 20px;
 }
@@ -120,8 +150,18 @@ input[type=checkbox]:hover {
   gap: 15px;
 }
 
-.task {
+#dark .task {
   background-color: #1C1E21;
+  padding: 5px;
+  border-radius: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+}
+
+#light .task {
+  background-color: #EEEFEF;
+  color: #16171A;
   padding: 5px;
   border-radius: 15px;
   display: flex;

@@ -1,8 +1,8 @@
-export default function Header() {
+export default function Header(props) {
     return (
         <header>
-            <h1>SIMPLE TO-DO</h1>
-            <input type="checkbox" />
+            <h1 className="logo">Simple To-Do</h1>
+            <input type="checkbox" onChange={props.handleChange}/>
         </header>
     );
 }

@@ -2,9 +2,11 @@ import "./App.css";
 import NewTask from "./NewTask";
 import TaskList from "./TaskList";
 import Header from "./Header";
-import { useState } from "react";
+import { useState, createContext } from "react";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
+
+export const ThemeContext = createContext(null);
 
 function App() {
   const [newTask, setNewTask] = useState({});
@@ -59,9 +61,25 @@ function App() {
     }
   };
 
+  // Get system theme preference
+  let systemTheme;
+  if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    systemTheme = "dark";
+  } else {
+    systemTheme = "light";
+  }
+  // Set system theme preference to default
+  const [theme, setTheme] = useState(systemTheme);
+  
+
+  const toggleTheme = () => {
+    setTheme(curr => curr == "light" ? "dark" : "light");
+  }
+
   return (
-    <div>
-      <Header />
+    <ThemeContext.Provider value={( theme, toggleTheme )}>
+    <div id={theme}>
+      <Header handleChange={toggleTheme} />
       <main>
         <NewTask
           newTask={newTask}
@@ -78,6 +96,7 @@ function App() {
         </DndProvider>
       </main>
     </div>
+    </ThemeContext.Provider>
   );
 }
 
