@@ -71,10 +71,19 @@ function Task({title, id, index, handleDelete, handleChange, moveTask}){
     drag(drop(ref));
     return(
         <div className="task" style={{cursor: isDragging ? "grabbing" : "grab", opacity: isDragging ? "0" : "1", border: isOver ? "solid #705df2" : "none"}} ref={ref} data-handler-id={handlerId} key={id}>
-            <input type="checkbox" onChange={(event) => handleChange(id, event)}/>
-            <p>{title}</p>
-            <button className="button" type="button" onClick={() => handleDelete(id)}>X</button>
-            <button className="button" type="button">...</button>
+
+            <label className="task-info">
+              <input className="task-checkbox" type="checkbox" onChange={(event) => handleChange(id, event)}/>
+              {title}
+            </label>
+
+
+            <button style={{display: "none"}} className="button" type="button" onClick={() => handleDelete(id)}>X</button>
+            <button className="button" type="button">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" width="20px">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z" />
+            </svg>
+            </button>
         </div> 
     );
 }

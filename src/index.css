@@ -71,7 +71,6 @@ main {
 
 button[type=submit] {
   background: #705DF2;
-  color: #EEEFEF;
   border-radius: 10px;
   text-align: center;
   display: flex;
@@ -84,9 +83,20 @@ button[type=submit] {
   margin: 10px;
 }
 
+#dark button[type=submit] {
+  color: #322D5E;
+}
+
+#light button[type=submit] {
+  color: #D2CCFC;
+}
+
 button[type=submit]:hover {
-  background: #715df2d1;
   cursor: pointer;
+}
+
+button[type=submit]:active {
+  transform: scale(1.05);
 }
 
 button[type=button] {
@@ -99,7 +109,7 @@ button[type=button] {
   font-size: 12px;
   font-weight: 600;
   border: none;
-  padding: 5px 10px;
+  padding: 10px;
   margin: 5px;
 }
 
@@ -178,4 +188,43 @@ input[type=checkbox]:hover {
 
 #light .task {
   background-color: #EEEFEF;
+}
+
+.task-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+
+.task-checkbox {
+  cursor: pointer;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 5px;
+}
+
+#dark .task-checkbox {
+  background-color: #272A2E;
+}
+
+#light .task-checkbox {
+  background-color: #E0E1E1;
+}
+
+#dark .task-checkbox:checked {
+  background-color: #705DF2;
+  background-image: url('./checkmark.svg');
+  background-size: 15px;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+#light .task-checkbox:checked {
+  background-color: #705DF2;
+  background-image: url('./checkmark.svg');
+  background-size: 15px;
+  background-position: center;
+  background-repeat: no-repeat;
 }
