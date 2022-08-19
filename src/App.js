@@ -2,7 +2,7 @@ import "./App.css";
 import NewTask from "./NewTask";
 import TaskList from "./TaskList";
 import Header from "./Header";
-import { useState, createContext } from "react";
+import { useState, createContext, useEffect } from "react";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 
@@ -61,20 +61,31 @@ function App() {
     }
   };
 
-  // Get system theme preference
-  let systemTheme;
-  if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-    systemTheme = "dark";
-  } else {
-    systemTheme = "light";
-  }
-  // Set system theme preference to default
-  const [theme, setTheme] = useState(systemTheme);
+  // Initialize theme state
+  const [theme, setTheme] = useState(null);
   
-
+  // Set theme state with system theme settings on mount (on page load)
+  useEffect(() => {
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      // If system settings in dark mode...
+      setTheme("dark");
+    } else {
+      // If system settings in light mode...
+      setTheme("light");
+    }
+  }, [])
+  
+  // Update (toggle) theme state
   const toggleTheme = () => {
     setTheme(curr => curr == "light" ? "dark" : "light");
   }
+  
+  // When theme state changes, update root styles to match appropriate theme
+  useEffect(() => {
+    const styleRoot = document.getElementsByTagName('html')[0].style;
+    styleRoot.backgroundColor = theme == "dark" ? "#16171A" : "#fff";
+    styleRoot.colorScheme = theme == "dark" ? "dark" : "light";
+  }, [theme])
 
   return (
     <ThemeContext.Provider value={( theme, toggleTheme )}>
