@@ -22,7 +22,7 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 15px;
+  padding: 5px 25px;
 }
 
 .logo {
@@ -40,6 +40,29 @@ header {
 
 #light .logo {
   color: #16171A;
+}
+
+.theme-checkbox {
+  position: relative;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.theme-checkbox input {
+  cursor: pointer;
+  position: absolute;
+  opacity: 0;
+  height: 0;
+  width: 0;
+}
+
+svg {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 main {

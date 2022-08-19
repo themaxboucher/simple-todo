@@ -90,7 +90,7 @@ function App() {
   return (
     <ThemeContext.Provider value={( theme, toggleTheme )}>
     <div id={theme}>
-      <Header handleChange={toggleTheme} />
+      <Header handleChange={toggleTheme} theme={theme} />
       <main>
         <NewTask
           newTask={newTask}
