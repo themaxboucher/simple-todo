@@ -74,7 +74,7 @@ function Task({title, id, index, handleDelete, handleChange, moveTask}){
 
             <label className="task-info">
               <input className="task-checkbox" type="checkbox" onChange={(event) => handleChange(id, event)}/>
-              {title}
+              <p>{title}</p>
             </label>
 
 
@@ -99,7 +99,7 @@ export default function TaskList({taskList, setTaskList, handleDelete, handleCha
             ]
           })
         );
-    }, []);
+    }, [setTaskList]);
 
     return(
         <div className="task-list">

@@ -221,10 +221,18 @@ input[type=checkbox]:hover {
   background-repeat: no-repeat;
 }
 
+#dark .task-checkbox:checked + p {
+  text-decoration: line-through;
+}
+
 #light .task-checkbox:checked {
   background-color: #705DF2;
   background-image: url('./checkmark.svg');
   background-size: 15px;
   background-position: center;
   background-repeat: no-repeat;
+}
+
+#light .task-checkbox:checked + p {
+  text-decoration: line-through;
 }
