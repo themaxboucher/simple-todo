@@ -1,8 +1,10 @@
+import Logo from "./Logo";
+
 export default function Header(props) {
-    return (
-        <header>
-            <h1 className="logo">Simple To-Do</h1>
-            <input type="checkbox" onChange={props.handleChange}/>
-        </header>
-    );
+  return (
+    <header>
+        <Logo />
+        <input type="checkbox" onChange={props.handleChange} />
+    </header>
+  );
 }
