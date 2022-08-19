@@ -77,14 +77,14 @@ function App() {
   
   // Update (toggle) theme state
   const toggleTheme = () => {
-    setTheme(curr => curr == "light" ? "dark" : "light");
+    setTheme(curr => curr === "light" ? "dark" : "light");
   }
   
   // When theme state changes, update root styles to match appropriate theme
   useEffect(() => {
     const styleRoot = document.getElementsByTagName('html')[0].style;
-    styleRoot.backgroundColor = theme == "dark" ? "#16171A" : "#fff";
-    styleRoot.colorScheme = theme == "dark" ? "dark" : "light";
+    styleRoot.backgroundColor = theme === "dark" ? "#16171A" : "#fff";
+    styleRoot.colorScheme = theme === "dark" ? "dark" : "light";
   }, [theme])
 
   return (
