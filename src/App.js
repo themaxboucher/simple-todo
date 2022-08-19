@@ -92,19 +92,21 @@ function App() {
     <div id={theme}>
       <Header handleChange={toggleTheme} theme={theme} />
       <main>
-        <NewTask
-          newTask={newTask}
-          handleChange={handleChange}
-          handleSubmit={handleSubmit}
-        />
-        <DndProvider backend={HTML5Backend}>
-          <TaskList
-            taskList={taskList}
-            setTaskList={setTaskList}
-            handleDelete={handleDelete}
-            handleChange={checkTask}
+        <div className="wrapper">
+          <NewTask
+            newTask={newTask}
+            handleChange={handleChange}
+            handleSubmit={handleSubmit}
           />
-        </DndProvider>
+          <DndProvider backend={HTML5Backend}>
+            <TaskList
+              taskList={taskList}
+              setTaskList={setTaskList}
+              handleDelete={handleDelete}
+              handleChange={checkTask}
+            />
+          </DndProvider>
+        </div>
       </main>
     </div>
     </ThemeContext.Provider>

@@ -18,6 +18,16 @@
   color: #EEEFEF;
 }
 
+@media (max-width: 600px) {
+  body {
+    margin-left: 0;
+    margin-right: 0;
+  }
+  .logo > h1 {
+    font-size: 0.5em;
+  }
+}
+
 header {
   display: flex;
   justify-content: space-between;
@@ -66,7 +76,15 @@ svg {
 }
 
 main {
-  margin: 50px 350px;
+  display: flex;
+  justify-content: center;
+}
+
+main > .wrapper {
+  width: 100%;
+  max-width: 500px;
+  min-width: min-content;
+  margin: 30px 25px;
 }
 
 button[type=submit] {
