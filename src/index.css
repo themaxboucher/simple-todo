@@ -265,12 +265,30 @@ input[type=checkbox]:hover {
   border-radius: 15px;
 }
 
+.editor-input {
+  background-color: transparent;
+  color: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  border: none;
+  padding: 0;
+  width: 100%;
+}
+
+.editor-input:focus {
+  outline: none;
+}
+
 #dark .edit-task {
   background-color: #1C1E21;
 }
 
 #light .edit-task {
   background-color: #EEEFEF;
+}
+
+.task-actions {
+  display: flex;
 }
 
 .danger-btn {
