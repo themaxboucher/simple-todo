@@ -22,7 +22,7 @@ function App() {
   };
 
   const [taskList, setTaskList] = useState([
-    { title: "Add some tasks to this list", id: Date.now(), done: false },
+    { title: "#1", id: 1, done: false, index: 1 }, { title: "#2", id: 2, done: false, index: 2 }, { title: "#3", id: 3, done: false, index: 3 },
   ]);
   const handleSubmit = (event) => {
     // If no task title do nothing
