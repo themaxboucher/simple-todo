@@ -6,7 +6,7 @@ export default function NewTask({newTask, handleChange, handleSubmit}){
                     className="input"
                     type="text"
                     autoFocus={true} 
-                    maxLength="75"
+                    maxLength="30"
                     placeholder="Add new task"
                     name="title"
                     value={newTask.title || ""}

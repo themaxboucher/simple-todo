@@ -123,9 +123,9 @@ button[type=button] {
   text-align: center;
   display: flex;
   align-items: center;
-  justify-content: center;
+  gap: 5px;
   font-size: 12px;
-  font-weight: 600;
+  font-weight: 500;
   border: none;
   padding: 10px;
   margin: 5px;
@@ -219,7 +219,9 @@ input[type=checkbox]:hover {
   cursor: pointer;
   appearance: none;
   width: 20px;
+  min-width: 20px;
   height: 20px;
+  min-height: 20px;
   border-radius: 5px;
 }
 
@@ -253,4 +255,24 @@ input[type=checkbox]:hover {
 
 #light .task-checkbox:checked + p {
   text-decoration: line-through;
+}
+
+.edit-task {
+  position: absolute;
+  top: 50px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 15px;
+}
+
+#dark .edit-task {
+  background-color: #1C1E21;
+}
+
+#light .edit-task {
+  background-color: #EEEFEF;
+}
+
+.danger-btn {
+  color: #EB5856;
 }
