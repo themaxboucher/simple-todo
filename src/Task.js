@@ -8,6 +8,20 @@ import {ReactComponent as EditIcon} from './icons/button/edit.svg';
 import {ReactComponent as DotsIcon} from './icons/button/dots.svg';
 
 export default function Task({index, id, title, moveTask, done, handleDelete, handleChange, updateTask}){
+    
+    const [actions, setActions] = useState(false);
+    const toggleActions = () => {
+        setActions((prev) => prev ? false : true);
+    }
+  
+    const [editor, setEditor] = useState(false);
+    const foldTask = () => {
+        setEditor(false);
+        setActions(false);
+    }
+  
+    const [taskTitle, setTaskTitle] = useState(title);
+    
     const ref = useRef(null);
 
     const [{ handlerId }, drop] = useDrop({
@@ -57,30 +71,16 @@ export default function Task({index, id, title, moveTask, done, handleDelete, ha
         },
     });
 
-    const [{ isDragging }, drag] = useDrag({
+    const [{ isDragging, canDrag }, drag] = useDrag({
       type: "TASK",
       item: { id, index },
+      canDrag: !editor,
       collect: (monitor) => ({
         isDragging: monitor.isDragging(),
       }),
     });
 
     drag(drop(ref));
-
-
-    const [actions, setActions] = useState(false);
-    const toggleActions = () => {
-        setActions((prev) => prev ? false : true);
-    }
-  
-    const [editor, setEditor] = useState(false);
-    const foldTask = () => {
-        setEditor(false);
-        setActions(false);
-    }
-  
-    const [taskTitle, setTaskTitle] = useState(title);
-
 
     // Fold task when user clicks outside that task component
     useEffect(() => {
@@ -99,7 +99,7 @@ export default function Task({index, id, title, moveTask, done, handleDelete, ha
     }, [ref]);
 
     return(
-        <div className="task" style={{opacity: isDragging ? "0" : "1", cursor: isDragging ? "grabbing" : "grab"}} ref={ref} data-handler-id={handlerId}>
+        <div className="task" style={{opacity: isDragging ? "0" : "1", cursor: editor ? "default" : "grab"}} ref={ref} data-handler-id={handlerId}>
   
             <label className="task-info" style={{cursor: actions || editor ? "not-allowed" : "pointer" }}>
                 <input className="task-checkbox" type="checkbox" disabled={actions || editor ? true : false} onChange={(event) => {
