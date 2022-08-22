@@ -52,6 +52,21 @@ header {
   color: #16171A;
 }
 
+.header-menu {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 25px;
+}
+
+#dark .header-menu a {
+  color: #EEEFEF;
+}
+
+#light .header-menu a {
+  color: #16171A;
+}
+
 .theme-checkbox {
   position: relative;
   cursor: pointer;

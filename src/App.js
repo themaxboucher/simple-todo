@@ -22,9 +22,7 @@ function App() {
   };
 
   const [taskList, setTaskList] = useState([
-    { title: "Prevent drag on editor", id: 1, done: false, index: 1 },  
     { title: "Animations", id: 4, done: false, index: 4 }, 
-    { title: "Add links and touchups", id: 5, done: false, index: 5 }, 
     { title: "Host", id: 6, done: false, index: 6 }, 
     { title: "Explore backend caching", id: 7, done: false, index: 7 },
   ]);
