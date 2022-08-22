@@ -2,6 +2,7 @@ import "./App.css";
 import NewTask from "./NewTask";
 import TaskList from "./TaskList";
 import Header from "./Header";
+import TasksPlaceholder from "./TasksPlaceholder";
 import { useState, createContext, useEffect } from "react";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
@@ -22,7 +23,7 @@ function App() {
   };
 
   const [taskList, setTaskList] = useState([
-    { title: "#1", id: 1, done: false, index: 1 }, { title: "#2", id: 2, done: false, index: 2 }, { title: "#3", id: 3, done: false, index: 3 },
+    { title: "Have outside click or drag fold task", id: 1, done: false, index: 1 }, { title: "Make editor edit task", id: 2, done: false, index: 2 }, { title: "Empty task placeholder", id: 3, done: false, index: 3 }, { title: "Animations", id: 4, done: false, index: 4 }, { title: "Add links and touchups", id: 5, done: false, index: 5 }, { title: "Host", id: 6, done: false, index: 6 }, { title: "Explore backend caching", id: 7, done: false, index: 7 },
   ]);
   const handleSubmit = (event) => {
     // If no task title do nothing
@@ -98,14 +99,18 @@ function App() {
             handleChange={handleChange}
             handleSubmit={handleSubmit}
           />
-          <DndProvider backend={HTML5Backend}>
-            <TaskList
-              taskList={taskList}
-              setTaskList={setTaskList}
-              handleDelete={handleDelete}
-              handleChange={checkTask}
-            />
-          </DndProvider>
+          {taskList.length !== 0 ? (
+            <DndProvider backend={HTML5Backend}>
+              <TaskList
+                taskList={taskList}
+                setTaskList={setTaskList}
+                handleDelete={handleDelete}
+                handleChange={checkTask}
+              />
+            </DndProvider>
+          ) : (
+            <TasksPlaceholder />
+          )}
         </div>
       </main>
     </div>

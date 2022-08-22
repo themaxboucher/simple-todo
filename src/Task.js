@@ -1,6 +1,7 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useDrag, useDrop } from "react-dnd";
 import Icon from './Icon';
+import { ThemeContext } from './App';
 
 export default function Task({index, id, title, moveTask, done, handleDelete, handleChange}){
     const ref = useRef(null);
@@ -61,7 +62,6 @@ export default function Task({index, id, title, moveTask, done, handleDelete, ha
       }),
     });
 
-
     drag(drop(ref));
 
     const [actions, setActions] = useState(false);
@@ -72,18 +72,46 @@ export default function Task({index, id, title, moveTask, done, handleDelete, ha
         setEditor((prev) => !prev ? true : false);
     }
 
+    const foldTask = () => {
+        setEditor(false);
+        setActions(false);
+    }
+
+    /*
+    if (isDragging) {
+        foldTask();
+    }
+    */
+
+    // Fold task when user clicks outside that task component
+    useEffect(() => {
+        function handleClickOutside(event) {
+          if (ref.current && !ref.current.contains(event.target)) {
+            foldTask();
+          }
+        }
+        // Bind the event listener
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+          // Unbind the event listener on clean up
+          document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, [ref]);
+
+    const [taskTitle, setTaskTitle] = useState(title);
+
     return(
         <div className="task" style={{opacity: isDragging ? "0" : "1", cursor: isDragging ? "grabbing" : "grab"}} ref={ref} data-handler-id={handlerId}>
   
             <label className="task-info">
                 <input className="task-checkbox" type="checkbox" onChange={(event) => {
                     handleChange(id, event);
-                    setActions(false);
+                    foldTask();
                 }}/>
                 {!editor ? (
                     <p>{title}</p>
                 ) : (
-                    <input className="editor-input" type="text" value={title} autoFocus />
+                    <input className="editor-input" type="text" value={title} onChange={(event) => setTaskTitle({value: event.target.value})} autoFocus />
                 )}
             </label>
   
@@ -91,9 +119,16 @@ export default function Task({index, id, title, moveTask, done, handleDelete, ha
                 {actions && !done && (
                     <>
                         <button type="button" onClick={() => toggleEditor()}>
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" width="20px">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                            </svg>
+                            {!editor ? (
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" width="20px">
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                </svg>
+
+                            ) : (
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5" width="20px">
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                                </svg>
+                            )}
                         </button>
                         <button className="danger-btn" type="button" onClick={() => handleDelete(id)}>
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" width="20px">
@@ -104,7 +139,7 @@ export default function Task({index, id, title, moveTask, done, handleDelete, ha
                 )}
 
                 {!done ? (
-                    <button type="button" onClick={() => setActions((prev) => prev ? false : true)}>
+                    <button type="button" onClick={() => setActions((prev) => prev ? false : true)} style={ThemeContext === "darK" ? {backgroundColor: actions && "#272A2E"} : {backgroundColor: actions && "#E0E1E1"}}>
                         <Icon d={"M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"} />
                     </button>
                 ) : (

@@ -141,6 +141,19 @@ button[type=button] {
   background: #E0E1E1;
 }
 
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: #9b9b9b;
+  opacity: 1; /* Firefox */
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  color: #9b9b9b;
+}
+
+::-ms-input-placeholder { /* Microsoft Edge */
+  color: #9b9b9b;
+}
+
 .input {
   background-color: transparent;
   color: inherit;
@@ -267,7 +280,7 @@ input[type=checkbox]:hover {
 
 .editor-input {
   background-color: transparent;
-  color: inherit;
+  color: #9b9b9b;
   font-size: inherit;
   font-weight: inherit;
   border: none;
@@ -293,4 +306,14 @@ input[type=checkbox]:hover {
 
 .danger-btn {
   color: #EB5856;
+}
+
+.placeholder-quote {
+  padding: 20px;
+  text-align: center;
+  opacity: 0.5;
+}
+
+.placeholder-quote > .quote {
+  font-size: 18px;
 }
