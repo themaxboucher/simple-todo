@@ -1,4 +1,3 @@
-import "./App.css";
 import NewTask from "./NewTask";
 import TaskList from "./TaskList";
 import Header from "./Header";
@@ -23,7 +22,11 @@ function App() {
   };
 
   const [taskList, setTaskList] = useState([
-    { title: "Have outside click or drag fold task", id: 1, done: false, index: 1 }, { title: "Make editor edit task", id: 2, done: false, index: 2 }, { title: "Empty task placeholder", id: 3, done: false, index: 3 }, { title: "Animations", id: 4, done: false, index: 4 }, { title: "Add links and touchups", id: 5, done: false, index: 5 }, { title: "Host", id: 6, done: false, index: 6 }, { title: "Explore backend caching", id: 7, done: false, index: 7 },
+    { title: "Prevent drag on editor", id: 1, done: false, index: 1 },  
+    { title: "Animations", id: 4, done: false, index: 4 }, 
+    { title: "Add links and touchups", id: 5, done: false, index: 5 }, 
+    { title: "Host", id: 6, done: false, index: 6 }, 
+    { title: "Explore backend caching", id: 7, done: false, index: 7 },
   ]);
   const handleSubmit = (event) => {
     // If no task title do nothing
@@ -91,7 +94,10 @@ function App() {
   return (
     <ThemeContext.Provider value={( theme, toggleTheme )}>
     <div id={theme}>
-      <Header handleChange={toggleTheme} theme={theme} />
+      <Header 
+        handleChange={toggleTheme} 
+        theme={theme} 
+      />
       <main>
         <div className="wrapper">
           <NewTask
@@ -99,18 +105,15 @@ function App() {
             handleChange={handleChange}
             handleSubmit={handleSubmit}
           />
-          {taskList.length !== 0 ? (
-            <DndProvider backend={HTML5Backend}>
-              <TaskList
-                taskList={taskList}
-                setTaskList={setTaskList}
-                handleDelete={handleDelete}
-                handleChange={checkTask}
-              />
-            </DndProvider>
-          ) : (
-            <TasksPlaceholder />
-          )}
+          <DndProvider backend={HTML5Backend}>
+            <TaskList
+              taskList={taskList}
+              setTaskList={setTaskList}
+              handleDelete={handleDelete}
+              handleChange={checkTask}
+            />
+          </DndProvider>
+          {taskList.length === 0 && <TasksPlaceholder />}
         </div>
       </main>
     </div>

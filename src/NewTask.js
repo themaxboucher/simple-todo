@@ -1,7 +1,7 @@
-export default function NewTask({newTask, handleChange, handleSubmit}){
+export default function NewTask(props){
     return (
         <div>
-            <form className="new-task" onSubmit={handleSubmit}>
+            <form className="new-task" onSubmit={props.handleSubmit}>
                 <input 
                     className="input"
                     type="text"
@@ -9,8 +9,8 @@ export default function NewTask({newTask, handleChange, handleSubmit}){
                     maxLength="30"
                     placeholder="Add new task"
                     name="title"
-                    value={newTask.title || ""}
-                    onChange={handleChange}
+                    value={props.newTask.title || ""}
+                    onChange={props.handleChange}
                 />
                 <button className="button" type="submit">
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.75" width="20px">

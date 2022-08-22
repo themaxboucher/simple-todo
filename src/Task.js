@@ -1,9 +1,13 @@
 import { useEffect, useRef, useState } from 'react';
 import { useDrag, useDrop } from "react-dnd";
-import Icon from './Icon';
-import { ThemeContext } from './App';
 
-export default function Task({index, id, title, moveTask, done, handleDelete, handleChange}){
+// Icons
+import {ReactComponent as TrashIcon} from './icons/button/trash.svg';
+import {ReactComponent as CheckIcon} from './icons/button/check.svg';
+import {ReactComponent as EditIcon} from './icons/button/edit.svg';
+import {ReactComponent as DotsIcon} from './icons/button/dots.svg';
+
+export default function Task({index, id, title, moveTask, done, handleDelete, handleChange, updateTask}){
     const ref = useRef(null);
 
     const [{ handlerId }, drop] = useDrop({
@@ -53,7 +57,6 @@ export default function Task({index, id, title, moveTask, done, handleDelete, ha
         },
     });
 
-
     const [{ isDragging }, drag] = useDrag({
       type: "TASK",
       item: { id, index },
@@ -64,29 +67,26 @@ export default function Task({index, id, title, moveTask, done, handleDelete, ha
 
     drag(drop(ref));
 
+
     const [actions, setActions] = useState(false);
-
-    const [editor, setEditor] = useState(false);
-
-    const toggleEditor = () => {
-        setEditor((prev) => !prev ? true : false);
+    const toggleActions = () => {
+        setActions((prev) => prev ? false : true);
     }
-
+  
+    const [editor, setEditor] = useState(false);
     const foldTask = () => {
         setEditor(false);
         setActions(false);
     }
+  
+    const [taskTitle, setTaskTitle] = useState(title);
 
-    /*
-    if (isDragging) {
-        foldTask();
-    }
-    */
 
     // Fold task when user clicks outside that task component
     useEffect(() => {
         function handleClickOutside(event) {
           if (ref.current && !ref.current.contains(event.target)) {
+            setTaskTitle(title);
             foldTask();
           }
         }
@@ -98,59 +98,62 @@ export default function Task({index, id, title, moveTask, done, handleDelete, ha
         };
     }, [ref]);
 
-    const [taskTitle, setTaskTitle] = useState(title);
-
     return(
         <div className="task" style={{opacity: isDragging ? "0" : "1", cursor: isDragging ? "grabbing" : "grab"}} ref={ref} data-handler-id={handlerId}>
   
-            <label className="task-info">
-                <input className="task-checkbox" type="checkbox" onChange={(event) => {
+            <label className="task-info" style={{cursor: actions || editor ? "not-allowed" : "pointer" }}>
+                <input className="task-checkbox" type="checkbox" disabled={actions || editor ? true : false} onChange={(event) => {
                     handleChange(id, event);
                     foldTask();
                 }}/>
-                {!editor ? (
-                    <p>{title}</p>
-                ) : (
-                    <input className="editor-input" type="text" value={title} onChange={(event) => setTaskTitle({value: event.target.value})} autoFocus />
-                )}
+                {!editor &&<p>{title}</p>}
             </label>
-  
-            <div className="task-actions">
-                {actions && !done && (
-                    <>
-                        <button type="button" onClick={() => toggleEditor()}>
-                            {!editor ? (
-                                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" width="20px">
-                                    <path strokeLinecap="round" strokeLinejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                                </svg>
+                {!editor ? (
+                    <div className="task-actions">
+                        {actions && !done && (
+                            <>
+                                <button type="button" onClick={() => setEditor(true)}>
+                                    <EditIcon />
+                                </button>
+                                <button className="danger-btn" type="button" onClick={() => handleDelete(id)}>
+                                    <TrashIcon />
+                                </button>
+                            </>
+                        )}
 
-                            ) : (
-                                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5" width="20px">
-                                    <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                                </svg>
-                            )}
+                        {!done ? (
+                            <button type="button" onClick={() => toggleActions()} style={{backgroundColor: actions && "#272A2E"}}>
+                                <DotsIcon />
+                            </button>
+                        ) : (
+                            <button className="danger-btn" type="button" onClick={() => handleDelete(id)}>
+                                <TrashIcon />
+                            </button>
+                        )}
+                    </div>                  
+                ) : (
+                    <>
+                    <form className='editor-form' onSubmit={(event) => {
+                        event.preventDefault();
+                        updateTask(id, taskTitle);
+                        foldTask();
+                    }}>
+                        <input 
+                            className="editor-input" 
+                            type="text" 
+                            value={taskTitle} 
+                            onChange={(e) => setTaskTitle(e.target.value)} 
+                            autoFocus={true} 
+                            maxLength="30"
+                            name="title"
+                        />
+
+                        <button type="submit">
+                            <CheckIcon />
                         </button>
-                        <button className="danger-btn" type="button" onClick={() => handleDelete(id)}>
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" width="20px">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                            </svg>
-                        </button>
+                    </form>
                     </>
                 )}
-
-                {!done ? (
-                    <button type="button" onClick={() => setActions((prev) => prev ? false : true)} style={ThemeContext === "darK" ? {backgroundColor: actions && "#272A2E"} : {backgroundColor: actions && "#E0E1E1"}}>
-                        <Icon d={"M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"} />
-                    </button>
-                ) : (
-                    <button className="danger-btn" type="button" onClick={() => handleDelete(id)}>
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" width="20px">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                        </svg>
-                    </button>
-                )}
-            </div>
-            
-        </div> 
+        </div>
     );
 }

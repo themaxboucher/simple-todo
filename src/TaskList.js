@@ -1,8 +1,23 @@
-import update from 'immutability-helper';
-import { useCallback } from 'react'
+import update from "immutability-helper";
+import { useCallback } from "react";
 import Task from "./Task";
 
-export default function TaskList({taskList, setTaskList, handleDelete, handleChange}) {
+export default function TaskList({
+  taskList,
+  setTaskList,
+  handleDelete,
+  handleChange,
+}) {
+  const updateTask = useCallback((taskIdToCheck, taskTitle) => {
+    setTaskList((prev) =>
+      prev.map((task) => {
+        if (task.id === taskIdToCheck) {
+          return { ...task, title: taskTitle };
+        }
+        return task;
+      })
+    );
+  }, []);
 
   const moveTask = useCallback((dragIndex, hoverIndex) => {
     setTaskList((prev) =>
@@ -11,8 +26,8 @@ export default function TaskList({taskList, setTaskList, handleDelete, handleCha
           [dragIndex, 1],
           [hoverIndex, 0, prev[dragIndex]],
         ],
-      }),
-    )
+      })
+    );
   }, []);
 
   const renderTask = useCallback((task, index) => {
@@ -26,8 +41,9 @@ export default function TaskList({taskList, setTaskList, handleDelete, handleCha
         done={task.done}
         handleDelete={handleDelete}
         handleChange={handleChange}
+        updateTask={updateTask}
       />
-    )
+    );
   }, []);
 
   return (
