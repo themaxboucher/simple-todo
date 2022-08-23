@@ -7,6 +7,7 @@ export default function TaskList({
   setTaskList,
   handleDelete,
   handleChange,
+  theme
 }) {
   const updateTask = useCallback((taskIdToCheck, taskTitle) => {
     setTaskList((prev) =>
@@ -17,7 +18,7 @@ export default function TaskList({
         return task;
       })
     );
-  }, []);
+  }, [setTaskList]);
 
   const moveTask = useCallback((dragIndex, hoverIndex) => {
     setTaskList((prev) =>
@@ -28,7 +29,7 @@ export default function TaskList({
         ],
       })
     );
-  }, []);
+  }, [setTaskList]);
 
   const renderTask = useCallback((task, index) => {
     return (
@@ -42,9 +43,10 @@ export default function TaskList({
         handleDelete={handleDelete}
         handleChange={handleChange}
         updateTask={updateTask}
+        theme={theme}
       />
     );
-  }, []);
+  }, [handleChange, handleDelete, moveTask, theme, updateTask]);
 
   return (
     <>

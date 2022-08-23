@@ -22,6 +22,7 @@ function App() {
 
   const [taskList, setTaskList] = useState([
     { title: "Fix rendering bugs", id: 1, done: false},
+    { title: "Fix light mode actions toggle", id: 2, done: false},
     { title: "Animations", id: 4, done: false}, 
     { title: "Host", id: 6, done: false }, 
     { title: "Explore backend caching", id: 7, done: false },
@@ -109,6 +110,7 @@ function App() {
               setTaskList={setTaskList}
               handleDelete={handleDelete}
               handleChange={checkTask}
+              theme={theme}
             />
           </DndProvider>
           {taskList.length === 0 && <TasksPlaceholder />}

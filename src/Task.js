@@ -7,7 +7,7 @@ import {ReactComponent as CheckIcon} from './icons/button/check.svg';
 import {ReactComponent as EditIcon} from './icons/button/edit.svg';
 import {ReactComponent as DotsIcon} from './icons/button/dots.svg';
 
-export default function Task({index, id, title, moveTask, done, handleDelete, handleChange, updateTask}){
+export default function Task({index, id, title, moveTask, done, handleDelete, handleChange, updateTask, theme}){
     
     const [actions, setActions] = useState(false);
     const toggleActions = () => {
@@ -71,7 +71,7 @@ export default function Task({index, id, title, moveTask, done, handleDelete, ha
         },
     });
 
-    const [{ isDragging, canDrag }, drag] = useDrag({
+    const [{ isDragging }, drag] = useDrag({
       type: "TASK",
       item: { id, index },
       canDrag: !editor,
@@ -96,7 +96,7 @@ export default function Task({index, id, title, moveTask, done, handleDelete, ha
           // Unbind the event listener on clean up
           document.removeEventListener("mousedown", handleClickOutside);
         };
-    }, [ref]);
+    }, [ref, title]);
 
     return(
         <div className="task" style={{opacity: isDragging ? "0" : "1", cursor: editor ? "default" : "grab"}} ref={ref} data-handler-id={handlerId}>
@@ -122,7 +122,7 @@ export default function Task({index, id, title, moveTask, done, handleDelete, ha
                         )}
 
                         {!done ? (
-                            <button type="button" onClick={() => toggleActions()} style={{backgroundColor: actions && "#272A2E"}}>
+                            <button type="button" onClick={() => toggleActions()} style={{backgroundColor: actions && (theme === "dark" ? "#272A2E" : "#E0E1E1")}}>
                                 <DotsIcon />
                             </button>
                         ) : (
