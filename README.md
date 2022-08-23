@@ -7,4 +7,4 @@ Simple To-Do is a basic to-do list. Try it out [here]().
 - Dragging and dropping tasks to sort the order of your list
 - Light/dark mode toggle
 
-Built using [Create React App]() and deployed with [Vercel]().
+Built using [Create React App](https://create-react-app.dev/) and deployed with [Vercel](https://vercel.com/).
