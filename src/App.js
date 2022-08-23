@@ -17,14 +17,14 @@ function App() {
       id: Date.now(),
       [name]: value,
       done: false,
-      index: 1,
     }));
   };
 
   const [taskList, setTaskList] = useState([
-    { title: "Animations", id: 4, done: false, index: 4 }, 
-    { title: "Host", id: 6, done: false, index: 6 }, 
-    { title: "Explore backend caching", id: 7, done: false, index: 7 },
+    { title: "Fix rendering bugs", id: 1, done: false},
+    { title: "Animations", id: 4, done: false}, 
+    { title: "Host", id: 6, done: false }, 
+    { title: "Explore backend caching", id: 7, done: false },
   ]);
   const handleSubmit = (event) => {
     // If no task title do nothing
