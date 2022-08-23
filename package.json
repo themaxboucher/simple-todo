@@ -1,5 +1,5 @@
 {
-  "name": "my-app",
+  "name": "Simple To-Do",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
