@@ -21,9 +21,7 @@ function App() {
   };
 
   const [taskList, setTaskList] = useState([
-    { title: "Animations", id: 4, done: false}, 
-    { title: "Host", id: 6, done: false }, 
-    { title: "Explore backend caching", id: 7, done: false },
+    { title: "Start adding tasks!", id: Date.now(), done: false}, 
   ]);
   const handleSubmit = (event) => {
     // If no task title do nothing
